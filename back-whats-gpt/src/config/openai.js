@@ -1,7 +1,5 @@
 const { Configuration, OpenAIApi } = require("openai");
 
-const prompt = "once upon a time";
-
 module.exports = class openai {
   static configuration() {
     const configuration = new Configuration({
@@ -13,8 +11,12 @@ module.exports = class openai {
 
   static textCompletion({ prompt }) {
     return {
-      model: "gpt-3.5-turbo-16k",
-      prompt: `${prompt}`,
+      model: "gpt-3.5-turbo-16k-0613",
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: `${prompt}` },
+      ],
+
       temperature: 0,
       max_tokens: 15500,
       top_p: 1,

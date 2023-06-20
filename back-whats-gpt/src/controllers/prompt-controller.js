@@ -4,17 +4,16 @@ const openai = require("../config/openai");
 module.exports = {
   async sendText(req, res) {
     const openaiAPI = openai.configuration();
-    // const inputModel = new inputPrompt(req.body);
     const prompt = req.body;
 
     try {
-      const response = await openaiAPI.chatCompletion(
+      const response = await openaiAPI.createChatCompletion(
         openai.textCompletion(prompt)
       );
 
       return res.status(200).json({
         sucess: true,
-        data: response.data.choices[0].text,
+        data: response.data.choices[0].message.content,
       });
     } catch (error) {
       return res.status(400).json({
